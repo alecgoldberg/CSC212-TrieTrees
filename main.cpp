@@ -64,6 +64,7 @@ void deleteWord()
 // search for a word in the trie and print the number of instances of the word in the trie
 void searchWord()
 {
+    clock_t startTime = clock();
 	// reading a word input
 	string word;
 	cout << "Enter the word to be searched -->";
@@ -72,15 +73,20 @@ void searchWord()
 	// seraching for a word
 	int ret = tree.search(word.c_str());
 	if (ret == 0){
+	    
 		cout << "The word '" << word << "' was not found in our trie" << endl;
 	}
 	else{
 		cout << "The word '" << word << "' has been inserted " << ret << " times in our trie " << endl;
 	}
+	cout << double( clock() - startTime ) / (double)CLOCKS_PER_SEC<< " seconds." << endl;
+
+	
 }
 
 int main()
 {
+    clock_t startTime = clock();
 
 	// opening filename of words
 	string filename;
@@ -100,6 +106,7 @@ int main()
 		cout << "Inserting " + word << endl;
 		tree.insert(word.c_str());
 	}
+	cout << double( clock() - startTime ) / (double)CLOCKS_PER_SEC<< " seconds." << endl;
 
 	// menu options
 	do{
