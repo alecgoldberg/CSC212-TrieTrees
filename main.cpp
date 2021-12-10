@@ -1,16 +1,14 @@
 #include <string>
 #include <fstream>
-#include <cstring>
 #include "trie.h"
-
+#include <cstring>
 // global variable trie
-// Initializes the class we are using and created the variable so we can use it
 trie tree;
 
 // display the menu and return the user option
 int menu()
 {
-	int option = 0;
+	int opc = 0;
 	do
 	{
 		cout << "  1. Insert a new word" << endl;
@@ -18,12 +16,13 @@ int menu()
 		cout << "  3. Search word" << endl;
 		cout << "  4. Quit" << endl;
 		cout << "  Select an option -->";
-		cin >> option;
-		if (option == 1 || option == 2 || option == 3 || option == 4)
+		cin >> opc;
+		if (opc == 1 || opc == 2 || opc == 3 || opc == 4){
 			break;
-		cout << "Invalid option " << option << endl << endl;
+		}
+		cout << "Invalid option " << opc << endl << endl;
 	} while (true);
-	return option;
+	return opc;
 }
 
 // insert a user-defined word into the trie
@@ -31,15 +30,17 @@ void insertWord()
 {
 	// reading word
 	string word;
-	cout << "Enter a word: ";
+	cout << "Enter a word -->";
 	cin >> word;
 
 	// inserting
 	bool ret = tree.insert(word.c_str());
-	if (ret)
+	if (ret){
 		cout << "The word '" << word << "' was inserted in our trie" << endl;
-	else
+	}
+	else{
 		cout << "The word '" << word << "' is not valid, and it was not inserted" << endl;
+	}
 }
 
 // delete a word from the trie
@@ -47,33 +48,30 @@ void deleteWord()
 {
 	// reading the word
 	string word;
-	cout << "Enter word: ";
+	cout << "Enter the word to be deleted -->";
 	cin >> word;
 
 	// calling erase
 	bool erased = tree.erase(word.c_str());
 	if (erased){
-		cout << "The word '" << word << "' was erased from our trie" << endl;
+		cout << "The word '" << word << "' was deleted from our trie" << endl;
 	}
 	else{
 		cout << "The word '" << word << "' was not found in our trie" << endl;
 	}
-
 }
 
-// search for a word in the trie and print the numer of instances of the word in the trie
+// search for a word in the trie and print the number of instances of the word in the trie
 void searchWord()
 {
-	// reading a word
+	// reading a word input
 	string word;
-	cout << "Search a word: ";
+	cout << "Enter the word to be searched -->";
 	cin >> word;
 
-	// searching
+	// seraching for a word
 	int ret = tree.search(word.c_str());
 	if (ret == 0){
-
-
 		cout << "The word '" << word << "' was not found in our trie" << endl;
 	}
 	else{
@@ -81,13 +79,12 @@ void searchWord()
 	}
 }
 
-// main function
 int main()
 {
 
 	// opening filename of words
 	string filename;
-	cout << "Enter filename: ";
+	cout << "Introduce filename--> ";
 	cin >> filename;
 
 	ifstream file;
@@ -97,7 +94,7 @@ int main()
 		return 0;
 	}
 
-	// reading word by word
+	// reading input word by word
 	string word;
 	while (file >> word){
 		cout << "Inserting " + word << endl;
@@ -106,25 +103,26 @@ int main()
 
 	// menu options
 	do{
-		int option = menu();
-		if (option == 1){
-				insertWord();
+		int opc = menu();
+		if (opc == 1){
+			insertWord();
 		}
 
-		else if (option == 2){
-				deleteWord();
+		else if (opc == 2){
+			deleteWord();
 		}
-		else if (option == 3){
-				searchWord();
+
+		else if (opc == 3){
+			searchWord();
 		}
 
 		else
 			break;
 	} while (1);
-	
+
 	tree.print("output.txt");
 
-
 	return 0;
+
 
 }
